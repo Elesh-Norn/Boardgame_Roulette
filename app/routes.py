@@ -9,6 +9,7 @@ from app.models import User, Post
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from app.forms import PostForm, ResetPasswordRequestForm
 from app.forms import ResetPasswordForm
+from app.forms import AddBoardgame
 from app.email import send_password_reset_email
 
 
@@ -198,3 +199,14 @@ def reset_password(token):
         flash('Your password has been reset.')
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
+
+@app.route("/add_boardgame", methods=["GET", "POST"])
+@login_required
+def add_boardgame():
+    form = AddBoardgame()
+
+    if form.validate_on_submit():
+        flash("Your changes have been saved.")
+        return redirect(url_for("add_boardgame"))
+
+    return render_template("add_boardgame.html", title="Add Boardgame", form=form)

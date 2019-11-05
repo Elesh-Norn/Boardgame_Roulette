@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms import TextAreaField
+from wtforms import TextAreaField, IntegerField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
+from wtforms.validators import NumberRange
 from app.models import User
 
 
@@ -63,3 +64,15 @@ class ResetPasswordForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Request Password Reset')
+
+class AddBoardgame(FlaskForm):
+    title = TextAreaField("Boardgame Title")
+    player_number_min = IntegerField("Minimum number of players",
+                                     validators=[DataRequired(), NumberRange(min=1, max=None)])
+    player_number_max = IntegerField("Maximum number of players",
+                                     validators=[DataRequired(), NumberRange(min=1, max=None)])
+    playtime_low = IntegerField("Minimum playtime in minutes",
+                                     validators=[DataRequired(), NumberRange(min=0, max=None)])
+    playtime_max = IntegerField("Maximum playtime in minutes",
+                                validators=[DataRequired(), NumberRange(min=0, max=None)])
+    submit = SubmitField('Add  boardgame to your collection')
