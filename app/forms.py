@@ -66,7 +66,8 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField('Request Password Reset')
 
 class AddBoardgame(FlaskForm):
-    title = TextAreaField("Boardgame Title")
+    title = TextAreaField("Boardgame Title",
+                          validators=[DataRequired(), Length(min=1, max=140)])
     player_number_min = IntegerField("Minimum number of players",
                                      validators=[DataRequired(), NumberRange(min=1, max=None)])
     player_number_max = IntegerField("Maximum number of players",
@@ -75,4 +76,9 @@ class AddBoardgame(FlaskForm):
                                      validators=[DataRequired(), NumberRange(min=0, max=None)])
     playtime_max = IntegerField("Maximum playtime in minutes",
                                 validators=[DataRequired(), NumberRange(min=0, max=None)])
-    submit = SubmitField('Add  boardgame to your collection')
+    submit = SubmitField('Add')
+
+    def validate_boardgame_title(self):
+        result = User.query.filter_by(title=self.title.data).first()
+        if result is not None:
+            raise ValidationError("You already have this game")

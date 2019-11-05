@@ -34,6 +34,7 @@ class User(UserMixin, db.Model):
         backref=db.backref("followers", lazy="dynamic"),
         lazy="dynamic",
     )
+    boardgames = db.relationship("Boardgame", lazy="dynamic")
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -70,7 +71,7 @@ class User(UserMixin, db.Model):
         )
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
-            {'reset_password.txt': self.id, 'exp':time()+expires_in},
+            {'reset_password.txt': self.id, 'exp': time()+expires_in},
              app.config['SECRET_KEY'], algorithm="HS256").decode("utf-8")
 
     @staticmethod
@@ -91,3 +92,14 @@ class Post(db.Model):
     def __repr__(self):
         return "<Post {}>".format(self.body)
 
+
+class Boardgame(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(140))
+    player_number_min = (db.Integer)
+    player_number_max = (db.Integer)
+    playtime_low = (db.Integer)
+    playtime_max = (db.Integer)
+
+    def __repr__(self):
+        return "<Boardgame {}>".format(self.title)
