@@ -264,3 +264,4 @@ env
 venv
 Web_Test.pyproj
 FlaskWebSolution.sln
+/logs
