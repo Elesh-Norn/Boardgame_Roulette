@@ -5,7 +5,7 @@ from flask_login import current_user, login_user, logout_user
 from flask_login import login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.models import User, Post
+from app.models import User, Post, Boardgame
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from app.forms import PostForm, ResetPasswordRequestForm
 from app.forms import ResetPasswordForm
@@ -204,9 +204,23 @@ def reset_password(token):
 @login_required
 def add_boardgame():
     form = AddBoardgame()
-
     if form.validate_on_submit():
+        game = Boardgame(title=form.title.data,
+                    player_number_min=form.player_number_min.data,
+                    player_number_max =form.player_number_max.data,
+                    playtime_low = form.playtime_low.data,
+                    playtime_max = form.playtime_max.data)
+        
+        db.session.commit()
+        db.session.add(game)
         flash("Your changes have been saved.")
         return redirect(url_for("add_boardgame"))
 
     return render_template("add_boardgame.html", title="Add Boardgame", form=form)
+
+@app.route("/collection", methods=["GET"])
+@login_required
+def collection():
+    games = current_user.boardgames
+    print(games)
+    return render_template("collection.html", title="Your collection", games=games)

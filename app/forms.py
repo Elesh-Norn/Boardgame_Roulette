@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms import TextAreaField, IntegerField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from wtforms.validators import NumberRange
-from app.models import User
+from app.models import User, Boardgame
 
 
 class LoginForm(FlaskForm):
@@ -78,7 +78,7 @@ class AddBoardgame(FlaskForm):
                                 validators=[DataRequired(), NumberRange(min=0, max=None)])
     submit = SubmitField('Add')
 
-    def validate_boardgame_title(self):
-        result = User.query.filter_by(title=self.title.data).first()
+    def validate_title(self, title):
+        result = Boardgame.query.filter_by(title=title.data).first()
         if result is not None:
             raise ValidationError("You already have this game")

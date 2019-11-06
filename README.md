@@ -15,7 +15,6 @@ To do:
 
 * ~~Add a boardgame form~~
 * Add a boardgame model
-* Migrate/update the db
 * Display the collection in a pretty way
 * A roulette page
 * A roulette function

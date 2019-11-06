@@ -18,6 +18,12 @@ followers = db.Table(
     db.Column("followed_id", db.Integer, db.ForeignKey("user.id")),
 )
 
+boardgames = db.Table(
+    "boardgames",
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
+    db.Column("boardgame_id", db.Integer, db.ForeignKey("boardgame.id")),
+)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -34,7 +40,13 @@ class User(UserMixin, db.Model):
         backref=db.backref("followers", lazy="dynamic"),
         lazy="dynamic",
     )
-    boardgames = db.relationship("Boardgame", lazy="dynamic")
+    boardgames = db.relationship(
+        "User",
+        secondary=boardgames,
+        primaryjoin=(boardgames.c.user_id == id),
+        secondaryjoin=(boardgames.c.boardgame_id == id),
+        lazy="dynamic",
+    )
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -60,6 +72,9 @@ class User(UserMixin, db.Model):
                 followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
+
+    def add_game(self, game):
+        self.boardgames.append(game)
 
     def __repr__(self):
         return "<User {}>".format(self.username)
