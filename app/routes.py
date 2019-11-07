@@ -210,9 +210,8 @@ def add_boardgame():
                     player_number_max =form.player_number_max.data,
                     playtime_low = form.playtime_low.data,
                     playtime_max = form.playtime_max.data)
-        
-        db.session.commit()
         db.session.add(game)
+        db.session.commit()
         flash("Your changes have been saved.")
         return redirect(url_for("add_boardgame"))
 

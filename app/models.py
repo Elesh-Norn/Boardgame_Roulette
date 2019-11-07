@@ -41,10 +41,11 @@ class User(UserMixin, db.Model):
         lazy="dynamic",
     )
     boardgames = db.relationship(
-        "User",
+        "Boardgame",
         secondary=boardgames,
         primaryjoin=(boardgames.c.user_id == id),
         secondaryjoin=(boardgames.c.boardgame_id == id),
+        backref=db.backref('followers', lazy="dynamic"),
         lazy="dynamic",
     )
 
@@ -111,10 +112,10 @@ class Post(db.Model):
 class Boardgame(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))
-    player_number_min = (db.Integer)
-    player_number_max = (db.Integer)
-    playtime_low = (db.Integer)
-    playtime_max = (db.Integer)
+    player_number_min = db.Column(db.Integer)
+    player_number_max = db.Column(db.Integer)
+    playtime_low = db.Column(db.Integer)
+    playtime_max = db.Column(db.Integer)
 
     def __repr__(self):
         return "<Boardgame {}>".format(self.title)
