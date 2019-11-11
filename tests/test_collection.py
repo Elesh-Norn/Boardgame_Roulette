@@ -21,7 +21,7 @@ class UserModelCase(unittest.TestCase):
         db.session.commit()
 
         self.assertEqual(u1.collection.all(), [])
-        self.assertEqual(u1.collection.all(), [])
+        self.assertEqual(u2.collection.all(), [])
 
         game1 = Boardgame(title = "Kingdomino",
                           player_number_min=2,
