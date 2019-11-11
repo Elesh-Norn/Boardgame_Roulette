@@ -215,7 +215,8 @@ def add_boardgame():
             flash("You already have this game")
             return redirect(url_for("add_boardgame"))
 
-        if Boardgame.query.get(game.id) is None:
+        isgameindb = Boardgame.query.filter_by(title=game.title).first()
+        if not isgameindb:
             db.session.add(game)
 
         current_user.add_game(game)
@@ -229,5 +230,4 @@ def add_boardgame():
 @login_required
 def collection():
     games = current_user.collection
-    print(games)
     return render_template("collection.html", title="Your collection", games=games)

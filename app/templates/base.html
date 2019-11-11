@@ -15,7 +15,8 @@
         {% else %}
         <a href="{{ url_for('explore') }}">Explore</a>
         <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-        <a href="{{ url_for('add_boardgame') }}">Add a Boardgame</a>
+        <a href="{{ url_for('add_boardgame') }}">Add a Game</a>
+        <a href="{{ url_for('collection') }}">Collection</a>
         <a href="{{ url_for('logout') }}">Logout</a>
         {% endif %}
     </div>
