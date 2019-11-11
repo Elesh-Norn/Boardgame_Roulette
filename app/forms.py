@@ -49,31 +49,45 @@ class EditProfileForm(FlaskForm):
             if user is not None:
                 raise ValidationError("Please use a different username")
 
+
 class PostForm(FlaskForm):
-    post = TextAreaField("Say something", validators=[
-        DataRequired(), Length(min=1, max=140)])
-    submit = SubmitField('Submit')
+    post = TextAreaField(
+        "Say something", validators=[DataRequired(), Length(min=1, max=140)]
+    )
+    submit = SubmitField("Submit")
 
 
 class ResetPasswordRequestForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    submit = SubmitField('Request Password Reset')
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    submit = SubmitField("Request Password Reset")
+
 
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
     password2 = PasswordField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Request Password Reset')
+        "Repeat Password", validators=[DataRequired(), EqualTo("password")]
+    )
+    submit = SubmitField("Request Password Reset")
+
 
 class AddBoardgame(FlaskForm):
-    title = TextAreaField("Boardgame Title",
-                          validators=[DataRequired(), Length(min=1, max=140)])
-    player_number_min = IntegerField("Minimum number of players",
-                                     validators=[DataRequired(), NumberRange(min=1, max=None)])
-    player_number_max = IntegerField("Maximum number of players",
-                                     validators=[DataRequired(), NumberRange(min=1, max=None)])
-    playtime_low = IntegerField("Minimum playtime in minutes",
-                                     validators=[DataRequired(), NumberRange(min=0, max=None)])
-    playtime_max = IntegerField("Maximum playtime in minutes",
-                                validators=[DataRequired(), NumberRange(min=0, max=None)])
-    submit = SubmitField('Add')
+    title = TextAreaField(
+        "Boardgame Title", validators=[DataRequired(), Length(min=1, max=140)]
+    )
+    player_number_min = IntegerField(
+        "Minimum number of players",
+        validators=[DataRequired(), NumberRange(min=1, max=None)],
+    )
+    player_number_max = IntegerField(
+        "Maximum number of players",
+        validators=[DataRequired(), NumberRange(min=1, max=None)],
+    )
+    playtime_low = IntegerField(
+        "Minimum playtime in minutes",
+        validators=[DataRequired(), NumberRange(min=0, max=None)],
+    )
+    playtime_max = IntegerField(
+        "Maximum playtime in minutes",
+        validators=[DataRequired(), NumberRange(min=0, max=None)],
+    )
+    submit = SubmitField("Add")

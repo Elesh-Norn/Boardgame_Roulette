@@ -12,6 +12,7 @@ from app import app
 def load_user(id):
     return User.query.get(int(id))
 
+
 followers = db.Table(
     "followers",
     db.Column("follower_id", db.Integer, db.ForeignKey("user.id")),
@@ -22,8 +23,8 @@ boardgames = db.Table(
     "boardgames",
     db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
     db.Column("boardgame_id", db.Integer, db.ForeignKey("boardgame.id")),
-
 )
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -41,18 +42,14 @@ class User(UserMixin, db.Model):
         backref=db.backref("followers", lazy="dynamic"),
         lazy="dynamic",
     )
-    collection = db.relationship(
-        "Boardgame",
-        secondary=boardgames,
-        lazy="dynamic",
-    )
+    collection = db.relationship("Boardgame", secondary=boardgames, lazy="dynamic")
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-    
+
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
@@ -62,13 +59,12 @@ class User(UserMixin, db.Model):
             self.followed.remove(user)
 
     def is_following(self, user):
-        return self.followed.filter(
-            followers.c.followed_id == user.id).count() > 0
-    
+        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
+
     def followed_posts(self):
         followed = Post.query.join(
-            followers, (followers.c.followed_id == Post.user_id)).filter(
-                followers.c.follower_id == self.id)
+            followers, (followers.c.followed_id == Post.user_id)
+        ).filter(followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
 
@@ -76,10 +72,9 @@ class User(UserMixin, db.Model):
         self.collection.append(game)
 
     def own_game(self, game):
-        return self.collection.filter(
-            boardgames.c.boardgame_id == game.id).count() > 0
+        return self.collection.filter(boardgames.c.boardgame_id == game.id).count() > 0
 
-    #TODO remove game from collection
+    # TODO remove game from collection
 
     def __repr__(self):
         return "<User {}>".format(self.username)
@@ -89,19 +84,24 @@ class User(UserMixin, db.Model):
         return "https://www.gravatar.com/avatar/{}?d=identicon&s={}".format(
             digest, size
         )
+
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
-            {'reset_password.txt': self.id, 'exp': time()+expires_in},
-             app.config['SECRET_KEY'], algorithm="HS256").decode("utf-8")
+            {"reset_password.txt": self.id, "exp": time() + expires_in},
+            app.config["SECRET_KEY"],
+            algorithm="HS256",
+        ).decode("utf-8")
 
     @staticmethod
     def verify_reset_password_token(token):
         try:
-            id = jwt.decode(token, app.config["SECRET_KEY"],
-                            algorithms=['HS256'])['reset_password.txt']
+            id = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])[
+                "reset_password.txt"
+            ]
         except:
             return
         return User.query.get(id)
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
