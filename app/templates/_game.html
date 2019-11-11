@@ -1,10 +1,12 @@
-﻿<table>
-    <tr valign="top">
+﻿
+    <tr>
         <td>
-            <a>
                 {{ game.title }}
-            </a>
-            Number of player max:<br>{{ game.player_number_max}}
+        </td>
+        <td>
+                {{ game.player_number_min }}/{{ game.player_number_max }}
+        </td>
+        <td>
+                {{ game.playtime_low }}/{{ game.playtime_max }} min
         </td>
     </tr>
-</table>

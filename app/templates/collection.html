@@ -1,7 +1,13 @@
 ﻿{% extends "base.html" %}
 
 {% block content %}
-<hr>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Number of players</th>
+        <th>Game Lenght<th>
+    </tr>
+
     {% for game in games %}
     {% include '_game.html' %}
     {% endfor %}
@@ -11,5 +17,5 @@
     {% if next_url %}
 <a href="{{ next_url }}">Older posts</a>
     {% endif %}
-
+</table>
 {% endblock %}

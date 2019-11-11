@@ -12,7 +12,6 @@ class UserModelCase(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-
     def test_collection(self):
         u1 = User(username="john", email="john@example.com")
         u2 = User(username="susan", email="susan@example.com")
@@ -23,23 +22,29 @@ class UserModelCase(unittest.TestCase):
         self.assertEqual(u1.collection.all(), [])
         self.assertEqual(u2.collection.all(), [])
 
-        game1 = Boardgame(title = "Kingdomino",
-                          player_number_min=2,
-                          player_number_max=4,
-                          playtime_low=15,
-                          playtime_max=30)
+        game1 = Boardgame(
+            title="Kingdomino",
+            player_number_min=2,
+            player_number_max=4,
+            playtime_low=15,
+            playtime_max=30,
+        )
 
-        game2 = Boardgame(title="Aeon's end",
-                          player_number_min=1,
-                          player_number_max=4,
-                          playtime_low=60,
-                          playtime_max=180)
+        game2 = Boardgame(
+            title="Aeon's end",
+            player_number_min=1,
+            player_number_max=4,
+            playtime_low=60,
+            playtime_max=180,
+        )
 
-        game3 = Boardgame(title="Terraforming Mars",
-                          player_number_min=1,
-                          player_number_max=5,
-                          playtime_low=60,
-                          playtime_max=999)
+        game3 = Boardgame(
+            title="Terraforming Mars",
+            player_number_min=1,
+            player_number_max=5,
+            playtime_low=60,
+            playtime_max=999,
+        )
 
         u1.add_game(game1)
         db.session.commit()
@@ -55,7 +60,7 @@ class UserModelCase(unittest.TestCase):
         titles_1 = [x.title for x in u1.collection]
         titles_2 = [x.title for x in u2.collection]
 
-        self.assertTrue('Kingdomino' in titles_1)
+        self.assertTrue("Kingdomino" in titles_1)
         self.assertFalse("Aeon's end" in titles_1)
 
         self.assertTrue("Aeon's end" in titles_2)
