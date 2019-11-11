@@ -14,7 +14,7 @@ added this boardgame (like Kingdomino, everybody love Kingdomino) and you don't 
 To do: 
 
 * ~~Add a boardgame form~~
-* Add a boardgame model
+* ~~Add a boardgame model~~
 * Display the collection in a pretty way
 * A roulette page
 * A roulette function

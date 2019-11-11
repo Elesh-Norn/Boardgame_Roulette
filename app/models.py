@@ -22,6 +22,7 @@ boardgames = db.Table(
     "boardgames",
     db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
     db.Column("boardgame_id", db.Integer, db.ForeignKey("boardgame.id")),
+
 )
 
 class User(UserMixin, db.Model):
@@ -40,12 +41,9 @@ class User(UserMixin, db.Model):
         backref=db.backref("followers", lazy="dynamic"),
         lazy="dynamic",
     )
-    boardgames = db.relationship(
+    collection = db.relationship(
         "Boardgame",
         secondary=boardgames,
-        primaryjoin=(boardgames.c.user_id == id),
-        secondaryjoin=(boardgames.c.boardgame_id == id),
-        backref=db.backref('followers', lazy="dynamic"),
         lazy="dynamic",
     )
 
@@ -75,7 +73,13 @@ class User(UserMixin, db.Model):
         return followed.union(own).order_by(Post.timestamp.desc())
 
     def add_game(self, game):
-        self.boardgames.append(game)
+        self.collection.append(game)
+
+    def own_game(self, game):
+        return self.collection.filter(
+            boardgames.c.boardgame_id == game.id).count() > 0
+
+    #TODO remove game from collection
 
     def __repr__(self):
         return "<User {}>".format(self.username)

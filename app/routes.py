@@ -208,9 +208,17 @@ def add_boardgame():
         game = Boardgame(title=form.title.data,
                     player_number_min=form.player_number_min.data,
                     player_number_max =form.player_number_max.data,
-                    playtime_low = form.playtime_low.data,
-                    playtime_max = form.playtime_max.data)
-        db.session.add(game)
+                    playtime_low=form.playtime_low.data,
+                    playtime_max=form.playtime_max.data)
+
+        if current_user.own_game(game):
+            flash("You already have this game")
+            return redirect(url_for("add_boardgame"))
+
+        if Boardgame.query.get(game.id) is None:
+            db.session.add(game)
+
+        current_user.add_game(game)
         db.session.commit()
         flash("Your changes have been saved.")
         return redirect(url_for("add_boardgame"))
@@ -220,6 +228,6 @@ def add_boardgame():
 @app.route("/collection", methods=["GET"])
 @login_required
 def collection():
-    games = current_user.boardgames
+    games = current_user.collection
     print(games)
     return render_template("collection.html", title="Your collection", games=games)

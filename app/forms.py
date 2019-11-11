@@ -77,8 +77,3 @@ class AddBoardgame(FlaskForm):
     playtime_max = IntegerField("Maximum playtime in minutes",
                                 validators=[DataRequired(), NumberRange(min=0, max=None)])
     submit = SubmitField('Add')
-
-    def validate_title(self, title):
-        result = Boardgame.query.filter_by(title=title.data).first()
-        if result is not None:
-            raise ValidationError("You already have this game")
