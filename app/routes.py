@@ -249,8 +249,30 @@ def add_boardgame():
     return render_template("add_boardgame.html", title="Add Boardgame", form=form)
 
 
-@app.route("/collection", methods=["GET"])
+@app.route("/collection", methods=["GET", "POST"])
 @login_required
 def collection():
+    form = AddBoardgame()
+    if form.validate_on_submit():
+        game = Boardgame(
+            title=form.title.data,
+            player_number_min=form.player_number_min.data,
+            player_number_max=form.player_number_max.data,
+            playtime_low=form.playtime_low.data,
+            playtime_max=form.playtime_max.data,
+        )
+
+        if current_user.own_game(game):
+            flash("You already have this game")
+            return redirect(url_for("collection"))
+
+        isgameindb = Boardgame.query.filter_by(title=game.title).first()
+        if not isgameindb:
+            db.session.add(game)
+
+        current_user.add_game(game)
+        db.session.commit()
+        flash("Your changes have been saved.")
+        return redirect(url_for("collection"))
     games = current_user.collection
-    return render_template("collection.html", title="Your collection", games=games)
+    return render_template("collection.html", title="Your collection", games=games, form=form)

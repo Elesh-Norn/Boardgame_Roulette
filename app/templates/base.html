@@ -24,6 +24,9 @@
                     </div>
                 </div>
                 {% else %}
+                <a class="navbar-item" href="{{ url_for('index') }}">
+                    <img src="/static/icon.jpeg" width="60" height="70">
+                </a>
                 <a class="navbar-item" href="{{ url_for('index') }}">Home</a>
                 <a class="navbar-item" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarmenu">

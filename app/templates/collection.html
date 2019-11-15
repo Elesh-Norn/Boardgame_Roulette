@@ -1,27 +1,91 @@
 ﻿{% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <table class="table is-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Number of players</th>
-                <th>Game Lenght
-                <th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for game in games %}
-            {% include '_game.html' %}
+<section class="section">
+    <h1 class="title">Add a Game!</h1>
+    <form role="form" action="" method="post">
+        {{ form.hidden_tag() }}
+        <nav class="level">
+            <div class="level-item">
+                <div class="field">
+                    <label class="label">{{ form.title.label }}</label>
+                    <div class="control">
+                        {{ form.title() }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">{{ form.player_number_min.label }}</label>
+                <div class="control">
+                    {{ form.player_number_min() }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">{{ form.player_number_max.label }}</label>
+                <div class="control">
+                    {{ form.player_number_max() }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">{{ form.playtime_low.label }}</label>
+                <div class="control">
+                    {{ form.playtime_low() }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">
+                    {{ form.playtime_max.label }}
+                </label>
+                <div class="control">
+                    {{ form.playtime_max() }}
+                </div>
+            </div>
+
+            <div class="field">
+                <p class="control">
+                    <a class="button is-primary">
+                        {{ form.submit() }}
+                    </a>
+                </p>
+            </div>
+            {% for error in form.title.errors %}
+            <span style="color: red;">
+                [{{
+ error
+                }}]
+            </span>
             {% endfor %}
-            {% if prev_url %}
-        </tbody>
-        <a href="{{ prev_url }}">Newer posts</a>
-        {% endif %}
-        {% if next_url %}
-        <a href="{{ next_url }}">Older posts</a>
-        {% endif %}
-    </table>
-</div>
-    {% endblock %}
+    </form>
+    </nav>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Your Collection</h1>
+        <table class="table is-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of players</th>
+                    <th>Game Lenght
+                    <th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for game in games %}
+                {% include '_game.html' %}
+                {% endfor %}
+                {% if prev_url %}
+            </tbody>
+            <a href="{{ prev_url }}">Newer posts</a>
+            {% endif %}
+            {% if next_url %}
+            <a href="{{ next_url }}">Older posts</a>
+            {% endif %}
+        </table>
+    </div>
+</section>
+{% endblock %}
