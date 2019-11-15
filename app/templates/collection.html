@@ -1,21 +1,27 @@
 ﻿{% extends "base.html" %}
 
 {% block content %}
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Number of players</th>
-        <th>Game Lenght<th>
-    </tr>
-
-    {% for game in games %}
-    {% include '_game.html' %}
-    {% endfor %}
-    {% if prev_url %}
-<a href="{{ prev_url }}">Newer posts</a>
-    {% endif %}
-    {% if next_url %}
-<a href="{{ next_url }}">Older posts</a>
-    {% endif %}
-</table>
-{% endblock %}
+<div class="container">
+    <table class="table is-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Number of players</th>
+                <th>Game Lenght
+                <th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game in games %}
+            {% include '_game.html' %}
+            {% endfor %}
+            {% if prev_url %}
+        </tbody>
+        <a href="{{ prev_url }}">Newer posts</a>
+        {% endif %}
+        {% if next_url %}
+        <a href="{{ next_url }}">Older posts</a>
+        {% endif %}
+    </table>
+</div>
+    {% endblock %}

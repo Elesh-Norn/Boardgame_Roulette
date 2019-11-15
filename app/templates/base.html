@@ -8,21 +8,47 @@
     <link rel="stylesheet" href='/static/css/bulma.css' />
 </head>
 <body>
-    <div>
-        {% if current_user.is_anonymous %}
-        Microblog:
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('login') }}">Login</a>
-        {% else %}
-        <hero>Microblog</hero>
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('explore') }}">Explore</a>
-        <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-        <a href="{{ url_for('add_boardgame') }}">Add a Game</a>
-        <a href="{{ url_for('collection') }}">Collection</a>
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
+    {% if current_user.is_authenticated %}
+    <div class="hero">
+        <div class="container">
+        <h1 class="title"> Boardgame Roulette </h1>
+        </div>
     </div>
+    {% endif %}
+        <div class="navbar is-fixed-top" role="navigation">
+            <div class="navbar-brand">
+                {% if current_user.is_anonymous %}
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="{{ url_for('login') }}"><strong>Login</strong></a>
+                    </div>
+                </div>
+                {% else %}
+                <a class="navbar-item" href="{{ url_for('index') }}">Home</a>
+                <a class="navbar-item" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarmenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+                {% endif %}
+            </div>
+            <div id="navbarmenu" class="navbar-menu">
+                {% if current_user.is_authenticated %}
+                <a class="navbar-item" href="{{ url_for('explore') }}">Explore</a>
+                <a class="navbar-item" href="{{ url_for('add_boardgame') }}">Add a Game</a>
+                <a class="navbar-item" href="{{ url_for('collection') }}">Collection</a>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary" href="{{ url_for('logout') }}"><strong>Log out</strong></a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+                
+        </div>
     <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
