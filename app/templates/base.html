@@ -5,14 +5,17 @@
     {% else %}
     <title>microblog</title>
     {% endif %}
+    <link rel="stylesheet" href='/static/css/bulma.css' />
 </head>
 <body>
     <div>
+        {% if current_user.is_anonymous %}
         Microblog:
         <a href="{{ url_for('index') }}">Home</a>
-        {% if current_user.is_anonymous %}
         <a href="{{ url_for('login') }}">Login</a>
         {% else %}
+        <hero>Microblog</hero>
+        <a href="{{ url_for('index') }}">Home</a>
         <a href="{{ url_for('explore') }}">Explore</a>
         <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
         <a href="{{ url_for('add_boardgame') }}">Add a Game</a>
