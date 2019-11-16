@@ -1,14 +1,24 @@
 ﻿<html>
 <head>
     {% if title %}
-    <title>{{ title }} - microblog</title>
+    <title>{{ title }} - Boardgame Roulette</title>
     {% else %}
-    <title>microblog</title>
+    <title>Boardgame Roulette</title>
     {% endif %}
     <link rel="stylesheet" href='/static/css/bulma.css' />
 </head>
 <body>
-        <div class="navbar has-background-primary" role="navigation">
+<section class="hero has-background-primary">
+    <div class="container">
+  <div class="hero-body">
+      <h1 class="title has-text-white">
+        Boardgame Roulette
+      </h1></div>
+    </div>
+</div>
+</section>
+<div class="container">
+        <div class="navbar" role="navigation">
             <div class="navbar-brand">
                 {% if current_user.is_anonymous %}
                 <div class="navbar-item">
@@ -17,9 +27,6 @@
                     </div>
                 </div>
                 {% else %}
-                <a class="navbar-item" href="{{ url_for('index') }}">
-                    <img src="/static/icon.jpeg" width="60" height="70">
-                </a>
                 <a class="navbar-item" href="{{ url_for('index') }}">Home</a>
                 <a class="navbar-item" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarmenu">
@@ -33,9 +40,6 @@
                 {% if current_user.is_authenticated %}
                 <a class="navbar-item" href="{{ url_for('explore') }}">Explore</a>
                 <a class="navbar-item" href="{{ url_for('collection') }}">Collection</a>
-                 <div class="container">
-         <h1 class="title"> Boardgame Roulette </h1>
-        </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
@@ -58,5 +62,6 @@
     {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
+    </div>
 </body>
 </html>
