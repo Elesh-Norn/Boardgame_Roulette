@@ -219,36 +219,6 @@ def reset_password(token):
         return redirect(url_for("login"))
     return render_template("reset_password.html", form=form)
 
-
-@app.route("/add_boardgame", methods=["GET", "POST"])
-@login_required
-def add_boardgame():
-    form = AddBoardgame()
-    if form.validate_on_submit():
-        game = Boardgame(
-            title=form.title.data,
-            player_number_min=form.player_number_min.data,
-            player_number_max=form.player_number_max.data,
-            playtime_low=form.playtime_low.data,
-            playtime_max=form.playtime_max.data,
-        )
-
-        if current_user.own_game(game):
-            flash("You already have this game")
-            return redirect(url_for("add_boardgame"))
-
-        isgameindb = Boardgame.query.filter_by(title=game.title).first()
-        if not isgameindb:
-            db.session.add(game)
-
-        current_user.add_game(game)
-        db.session.commit()
-        flash("Your changes have been saved.")
-        return redirect(url_for("add_boardgame"))
-
-    return render_template("add_boardgame.html", title="Add Boardgame", form=form)
-
-
 @app.route("/collection", methods=["GET", "POST"])
 @login_required
 def collection():

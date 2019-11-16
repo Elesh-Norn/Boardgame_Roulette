@@ -8,14 +8,7 @@
     <link rel="stylesheet" href='/static/css/bulma.css' />
 </head>
 <body>
-    {% if current_user.is_authenticated %}
-    <div class="hero">
-        <div class="container">
-        <h1 class="title"> Boardgame Roulette </h1>
-        </div>
-    </div>
-    {% endif %}
-        <div class="navbar is-fixed-top" role="navigation">
+        <div class="navbar has-background-primary" role="navigation">
             <div class="navbar-brand">
                 {% if current_user.is_anonymous %}
                 <div class="navbar-item">
@@ -39,8 +32,10 @@
             <div id="navbarmenu" class="navbar-menu">
                 {% if current_user.is_authenticated %}
                 <a class="navbar-item" href="{{ url_for('explore') }}">Explore</a>
-                <a class="navbar-item" href="{{ url_for('add_boardgame') }}">Add a Game</a>
                 <a class="navbar-item" href="{{ url_for('collection') }}">Collection</a>
+                 <div class="container">
+         <h1 class="title"> Boardgame Roulette </h1>
+        </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
