@@ -1,29 +1,48 @@
 ﻿{% extends "base.html" %}
 
 {% block content %}
-<h1>Sign In</h1>
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
-    <p>
-        {{ form.username.label }}<br>
-        {{ form.username(size=32) }}
-        {% for error in form.username.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password(size=32) }}
-        {% for error in form.password.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-    <p>{{ form.submit() }}</p>
+    <section class="section">
+        <div class="columns">
+            <div class="column is-4 is-offset-4">
+                <div class="field">
+                    <p>
+                        <div class="control">
+                            {{ form.username(class_="input", placeholder="Username") }}<br />
+                            {% for error in form.username.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        </div>
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="field">
+                    <p>
+                        <div class="control">
+                            {{ form.password(class_="input", placeholder="Password") }}<br />
+                        </div>
+                        {% for error in form.password.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                </div>
+
+                <div class="field">
+                    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+                    <p class="control">
+                        <button class="button is-primary">
+                            Login
+                        </button>
+                    </p>
+                </div>
+                <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+                <p>
+                    Forgot Your Password?
+                    <a href="{{ url_for('reset_password_request') }}">Click to Reset It</a>
+                </p>
+            </div>
+        </div>
+    </section>
 </form>
- <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
- <p>
-        Forgot Your Password?
-        <a href="{{ url_for('reset_password_request') }}">Click to Reset It</a>
-    </p>
+ 
 {% endblock %}

@@ -8,25 +8,19 @@
     <link rel="stylesheet" href='/static/css/bulma.css' />
 </head>
 <body>
-<section class="hero has-background-primary">
+    <section class="hero has-background-primary">
+        <div class="container">
+            <div class="hero-body">
+                <h1 class="title has-text-white">
+                    Boardgame Roulette
+                </h1>
+            </div>
+        </div>
+    </section>
+    {% if current_user.is_authenticated %}
     <div class="container">
-  <div class="hero-body">
-      <h1 class="title has-text-white">
-        Boardgame Roulette
-      </h1></div>
-    </div>
-</div>
-</section>
-<div class="container">
         <div class="navbar" role="navigation">
             <div class="navbar-brand">
-                {% if current_user.is_anonymous %}
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary" href="{{ url_for('login') }}"><strong>Login</strong></a>
-                    </div>
-                </div>
-                {% else %}
                 <a class="navbar-item" href="{{ url_for('index') }}">Home</a>
                 <a class="navbar-item" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarmenu">
@@ -34,10 +28,9 @@
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </a>
-                {% endif %}
             </div>
             <div id="navbarmenu" class="navbar-menu">
-                {% if current_user.is_authenticated %}
+
                 <a class="navbar-item" href="{{ url_for('explore') }}">Explore</a>
                 <a class="navbar-item" href="{{ url_for('collection') }}">Collection</a>
                 <div class="navbar-end">
@@ -47,21 +40,20 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
             </div>
-                
         </div>
-    <hr>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
+        {% endif %}
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
     </div>
 </body>
 </html>
