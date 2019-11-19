@@ -1,19 +1,25 @@
 ﻿{% extends "base.html" %}
 
 {% block content %}
+    <section >
+    <div class="container is-centered">
 <h1>Hi, {{ current_user.username }}!</h1>
 {% if form %}
 <form action="" method="post">
     {{ form.hidden_tag() }}
+
     <p>
         {{ form.post.label }}<br>
-        {{ form.post(cols=32, rows=4) }}<br>
+    <div class="control">
+        {{ form.post(class_="input") }}<br>
+</div>
         {% for error in form.post.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </p>
     <p>{{ form.submit() }}</p>
 </form>
+    </div>
 {% endif %}
     {% for post in posts %}
         {% include '_post.html' %}
@@ -24,4 +30,5 @@
     {% if next_url %}
 <a href="{{ next_url }}">Older posts</a>
     {% endif %}
+    </section>
 {% endblock %}

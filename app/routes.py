@@ -12,7 +12,6 @@ from app.forms import ResetPasswordForm
 from app.forms import AddBoardgame
 from app.email import send_password_reset_email
 
-
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 @login_required
