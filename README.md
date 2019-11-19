@@ -10,12 +10,13 @@ A second objective would be to form group of friends and pick a game across coll
 Last objective would maybe, to have autocompletion/suggestion feature when you want to add a boardgame. Maybe someone already
 added this boardgame (like Kingdomino, everybody love Kingdomino) and you don't want to fill out every  other information!
 
+ ![screenshot](illustration.png)
 
 To do: 
 
 * ~~Add a boardgame form~~
 * ~~Add a boardgame model~~
-* Display the collection in a pretty way
+* ~~Display the collection in a pretty way~~
 * A roulette page
 * A roulette function
 
