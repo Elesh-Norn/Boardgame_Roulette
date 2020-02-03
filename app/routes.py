@@ -245,3 +245,14 @@ def collection():
         return redirect(url_for("collection"))
     games = current_user.collection
     return render_template("collection.html", title="Your collection", games=games, form=form)
+
+@app.route("/random", methods=["GET", "POST"])
+@login_required
+def random():
+    form = RandomGame()
+    if format.validate_on_submit():
+        game = current_user.random_game()
+        if game is None:
+            flash("You do not posses games that match those criteria")
+            return redirect(url_for("random"))
+    return render_template("random.html", title="What games for today?!?", game=game)

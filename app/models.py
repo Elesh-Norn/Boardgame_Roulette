@@ -3,6 +3,7 @@ from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from hashlib import md5
 from flask_login import UserMixin
+from sqlalchemy import func
 from time import time
 import jwt
 from app import app
@@ -75,6 +76,10 @@ class User(UserMixin, db.Model):
         return self.collection.filter(boardgames.c.boardgame_id == game.id).count() > 0
 
     # TODO remove game from collection
+
+    def random_game(self):
+        # TODO 
+        return self.collection.order_by(func.random())
 
     def __repr__(self):
         return "<User {}>".format(self.username)
