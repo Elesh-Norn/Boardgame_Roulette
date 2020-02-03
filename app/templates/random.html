@@ -1,0 +1,30 @@
+{% extends "base.html"%}
+
+{% block content %}
+
+    <div class="container">
+    <h1 class="title">Pick a boardgame from your collection</h1>
+    <form role="form" action="" method="post">
+        {{ form.hidden_tag() }}
+        <nav class="level">
+
+            <div class="level-item">
+                <div class="field">
+                    <label class="label">{{ form.title.label }}</label>
+                    <div class="control">
+                        {{ form.title(class_="input") }}
+                    </div>
+                </div>
+            </div>
+
+<div class="level-item">
+            <div class="field">
+                <label class="label">{{ form.submit }}</label>
+                <div class="control">
+                    {{ form.submit(class_="input") }}
+                </div>
+            </div>
+    </div>
+
+
+

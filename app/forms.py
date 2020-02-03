@@ -91,3 +91,7 @@ class AddBoardgame(FlaskForm):
         validators=[DataRequired(), NumberRange(min=0, max=None)],
     )
     submit = SubmitField("Add")
+
+class RandomGame(FlaskForm):
+    submit = SubmitField(label='randomgame')
+
