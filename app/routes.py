@@ -10,6 +10,7 @@ from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from app.forms import PostForm, ResetPasswordRequestForm
 from app.forms import ResetPasswordForm
 from app.forms import AddBoardgame
+from app.forms import RandomGame
 from app.email import send_password_reset_email
 
 @app.route("/", methods=["GET", "POST"])
@@ -250,9 +251,11 @@ def collection():
 @login_required
 def random():
     form = RandomGame()
-    if format.validate_on_submit():
+    game = None
+    
+    if form.validate_on_submit():
         game = current_user.random_game()
         if game is None:
             flash("You do not posses games that match those criteria")
             return redirect(url_for("random"))
-    return render_template("random.html", title="What games for today?!?", game=game)
+    return render_template("random.html", game=game, form=form)

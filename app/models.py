@@ -79,7 +79,7 @@ class User(UserMixin, db.Model):
 
     def random_game(self):
         # TODO 
-        return self.collection.order_by(func.random())
+        return None
 
     def __repr__(self):
         return "<User {}>".format(self.username)
