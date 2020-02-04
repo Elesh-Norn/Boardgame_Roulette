@@ -80,7 +80,7 @@ class User(UserMixin, db.Model):
     def random_game(self, **kwargs):
         game_list = self.collection
         for key, value in kwargs.items():
-            game_list = game_list.filter(getattr(Boardgame, str(key)) <= str(value))
+            game_list = game_list.filter(getattr(Boardgame, str(key)) >= str(value))
         return game_list.order_by(func.random()).first()
 
     def __repr__(self):
