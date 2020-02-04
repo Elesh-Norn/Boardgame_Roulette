@@ -77,9 +77,11 @@ class User(UserMixin, db.Model):
 
     # TODO remove game from collection
 
-    def random_game(self):
-        # TODO 
-        return None
+    def random_game(self, **kwargs):
+        game_list = self.collection
+        for key, value in kwargs.items():
+            game_list = game_list.filter(getattr(Boardgame, str(key)) <= str(value))
+        return game_list.order_by(func.random()).first()
 
     def __repr__(self):
         return "<User {}>".format(self.username)

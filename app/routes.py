@@ -253,8 +253,11 @@ def random():
     form = RandomGame()
     game = None
     
-    if form.validate_on_submit():
-        game = current_user.random_game()
+    if request.method == 'POST':
+        if request.form['action'] == "Solo":
+            game = current_user.random_game(player_number_max = 1)
+        elif request.form['action'] == "Any":
+            game = current_user.random_game()
         if game is None:
             flash("You do not posses games that match those criteria")
             return redirect(url_for("random"))
