@@ -13,6 +13,7 @@ from app.forms import AddBoardgame
 from app.forms import RandomGame
 from app.email import send_password_reset_email
 
+
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 @login_required
@@ -219,6 +220,7 @@ def reset_password(token):
         return redirect(url_for("login"))
     return render_template("reset_password.html", form=form)
 
+
 @app.route("/collection", methods=["GET", "POST"])
 @login_required
 def collection():
@@ -245,18 +247,21 @@ def collection():
         flash("Your changes have been saved.")
         return redirect(url_for("collection"))
     games = current_user.collection
-    return render_template("collection.html", title="Your collection", games=games, form=form)
+    return render_template(
+        "collection.html", title="Your collection", games=games, form=form
+    )
+
 
 @app.route("/random", methods=["GET", "POST"])
 @login_required
 def random():
     form = RandomGame()
     game = None
-    
-    if request.method == 'POST':
-        if request.form['action'] == "Solo":
-            game = current_user.random_game(player_number_max = 1)
-        elif request.form['action'] == "Any":
+
+    if request.method == "POST":
+        if request.form["action"] == "Solo":
+            game = current_user.random_game(player_number_max=1)
+        elif request.form["action"] == "Any":
             game = current_user.random_game()
         if game is None:
             flash("You do not posses games that match those criteria")

@@ -75,23 +75,19 @@ class AddBoardgame(FlaskForm):
         "Boardgame Title", validators=[DataRequired(), Length(min=1, max=140)]
     )
     player_number_min = IntegerField(
-        "Min players",
-        validators=[DataRequired(), NumberRange(min=1, max=None)],
+        "Min players", validators=[DataRequired(), NumberRange(min=1, max=None)]
     )
     player_number_max = IntegerField(
-        "Max players",
-        validators=[DataRequired(), NumberRange(min=1, max=None)],
+        "Max players", validators=[DataRequired(), NumberRange(min=1, max=None)]
     )
     playtime_low = IntegerField(
-        "Min Time in minute",
-        validators=[DataRequired(), NumberRange(min=0, max=None)],
+        "Min Time in minute", validators=[DataRequired(), NumberRange(min=0, max=None)]
     )
     playtime_max = IntegerField(
-        "Max Time in minute",
-        validators=[DataRequired(), NumberRange(min=0, max=None)],
+        "Max Time in minute", validators=[DataRequired(), NumberRange(min=0, max=None)]
     )
     submit = SubmitField("Add")
 
-class RandomGame(FlaskForm):
-    submit = SubmitField(label='randomgame')
 
+class RandomGame(FlaskForm):
+    submit = SubmitField(label="randomgame")

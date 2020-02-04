@@ -30,7 +30,7 @@ class UserModelCase(unittest.TestCase):
             playtime_low=60,
             playtime_max=180,
         )
-        
+
         game3 = Boardgame(
             title="Terraforming Mars",
             player_number_min=1,
@@ -42,7 +42,7 @@ class UserModelCase(unittest.TestCase):
         db.session.add(u1)
         db.session.commit()
         result = u1.random_game()
-        self.assertIsNone(result) 
+        self.assertIsNone(result)
 
         u1.add_game(game1)
         u1.add_game(game2)
