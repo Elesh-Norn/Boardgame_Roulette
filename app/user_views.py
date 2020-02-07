@@ -9,8 +9,7 @@ from app.models import User, Post, Boardgame
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from app.forms import PostForm, ResetPasswordRequestForm
 from app.forms import ResetPasswordForm
-from app.forms import AddBoardgame
-from app.forms import RandomGame
+
 from app.email import send_password_reset_email
 
 
@@ -219,51 +218,3 @@ def reset_password(token):
         flash("Your password has been reset.")
         return redirect(url_for("login"))
     return render_template("reset_password.html", form=form)
-
-
-@app.route("/collection", methods=["GET", "POST"])
-@login_required
-def collection():
-    form = AddBoardgame()
-    if form.validate_on_submit():
-        game = Boardgame(
-            title=form.title.data,
-            player_number_min=form.player_number_min.data,
-            player_number_max=form.player_number_max.data,
-            playtime_low=form.playtime_low.data,
-            playtime_max=form.playtime_max.data,
-        )
-
-        if current_user.own_game(game):
-            flash("You already have this game")
-            return redirect(url_for("collection"))
-
-        isgameindb = Boardgame.query.filter_by(title=game.title).first()
-        if not isgameindb:
-            db.session.add(game)
-
-        current_user.add_game(game)
-        db.session.commit()
-        flash("Your changes have been saved.")
-        return redirect(url_for("collection"))
-    games = current_user.collection
-    return render_template(
-        "collection.html", title="Your collection", games=games, form=form
-    )
-
-
-@app.route("/random", methods=["GET", "POST"])
-@login_required
-def random():
-    form = RandomGame()
-    game = None
-
-    if request.method == "POST":
-        if request.form["action"] == "Solo":
-            game = current_user.random_game(player_number_max=1)
-        elif request.form["action"] == "Any":
-            game = current_user.random_game()
-        if game is None:
-            flash("You do not posses games that match those criteria")
-            return redirect(url_for("random"))
-    return render_template("random.html", game=game, form=form)

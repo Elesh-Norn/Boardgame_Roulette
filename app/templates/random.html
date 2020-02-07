@@ -5,31 +5,70 @@
 <div class="container">
     <h1 class="title">Pick a boardgame from your collection</h1>
     <form role="form" action="" method="post">
-        {{ form.hidden_tag() }}
-        <nav class="level">
+        <div class="columns">
+            <div class="column">
+                <div class="columns">
+                    <nav class="column">
+                        {{ form.hidden_tag() }}
+                        <div class="field">
+                            <label class="label is-large">Players</label>
 
-            <div class="level-item">
-                <div class="field">
-                    <p class="control">
-                        <button class="button is-primary" name="action" value="Any">
-                            Any game
-                        </button>
-                    </p>
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                <label class="label" {{form.player_number.label }}</label>
+                                </div>
+                                <div class="control">
+                                    {{form.player_number(class_="input is-medium  is-expanded")}}
+                                </div>
+                            </div>
+                                <label class="label is-large">Game</label>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label is-normal">
+                                        <label class="label" {{form.genre.label }}</label>
+                                        </div>
+                                    <div class="control">
+                                        {{form.genre(class_="input is-medium  is-expanded")}}
+                                    </div>
+                                 </div>
+
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label" {{form.difficulty.label }}</label>
+                                        </div>
+                                        <div class="control">
+                                            {{form.difficulty(class_="input is-medium  is-expanded")}}
+                                        </div>
+                                        </div>
+
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label" {{form.time.label }}</label>
+                                                </div>
+
+                                            <div class="control">
+                                                {{form.time(class_="input is-medium is-expanded")}}
+                                            </div>
+                                            </div>
+                        </div>
+
+
+
+
+                        <div class="field is-grouped-right">
+                            <p class="control">
+                                <button class="button is-primary" name="action" value="Solo">
+                                    Submit
+                                </button>
+                            </p>
+                        </div>
+                    </nav>
                 </div>
-
             </div>
-            
-            <div class="level-item">
-                <div class="field">
-                    <p class="control">
-                        <button class="button is-primary" name="action" value="Solo">
-                        Solo
-                        </button>
-                    </p>
-                </div>
-
+            <div class="column">
+                Filler
             </div>
-        </nav>
+        </div>
     </form>
 </div>
 
