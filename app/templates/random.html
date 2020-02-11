@@ -4,18 +4,22 @@
 {% macro input(label, variable) -%}
 
     <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                <label class="label">{{  label  }}</label>
-                                </div>
-                                <div class="control">
-                                    {{  variable(class_='input is-medium  is-expanded')  }}
-                                </div>
-                            </div>
+        <div class="field-label is-normal">
+            <label class="label">{{  label  }}</label>
+        </div>
+        <div class="control">
+            {{  variable(class_='input is-medium  is-expanded')  }}
+        </div>
+    {% for error in variable.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    </div>
 {%- endmacro %}
 
     <div class="container">
     <h1 class="title">Pick a boardgame from your collection</h1>
-    <form role="form" action="" method="post">
+    <form role="form" action="" method="POST">
         <div class="columns">
             <div class="column">
                 <div class="columns">
@@ -28,7 +32,6 @@
 
                             <label class="label is-large">Game</label>
 
-                            {{ input(label=form.player_number.label, variable=form.player_number) }}
                             {{ input(label=form.genre.label, variable=form.genre) }}
                             {{ input(label=form.difficulty.label, variable=form.difficulty) }}
                             {{ input(label=form.time.label, variable=form.time) }}
