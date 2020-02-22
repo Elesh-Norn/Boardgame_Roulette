@@ -1,34 +1,10 @@
 {% extends "base.html"%}
 
 {% block content %}
-{% macro input(label, variable) -%}
 
-    <div class="field is-horizontal">
-        <div class="field-label is-normal">
-            <label class="label">{{  label  }}</label>
-        </div>
-        <div class="control">
-            {{  variable(class_='input is-medium  is-expanded', id=variable.id)  }}
-        </div>
-    {% for error in variable.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-
-    </div>
-{%- endmacro %}
-{%  block script %}
-    <script>
-    function submit_search(){
-        var players = document.getElementById("player_number");
-        var entry = {
-            players: players.value
-        };
-    }
-    </script>
-{% endblock %}
-    <div class="container">
+<div class="container">
     <h1 class="title">Pick a boardgame from your collection</h1>
-    <form role="form" action="" method="POST">
+    <form role="form" action="" method="post">
         <div class="columns">
             <div class="column">
                 <div class="columns">
@@ -37,18 +13,51 @@
                         <div class="field">
                             <label class="label is-large">Players</label>
 
-                            {{ input(label=form.player_number.label, variable=form.player_number) }}
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                <label class="label" {{form.player_number.label }}</label>
+                                </div>
+                                <div class="control">
+                                    {{form.player_number(class_="input is-medium  is-expanded")}}
+                                </div>
+                            </div>
+                                <label class="label is-large">Game</label>
 
-                            <label class="label is-large">Game</label>
+                                <div class="field is-horizontal">
+                                    <div class="field-label is-normal">
+                                        <label class="label" {{form.genre.label }}</label>
+                                        </div>
+                                    <div class="control">
+                                        {{form.genre(class_="input is-medium  is-expanded")}}
+                                    </div>
+                                 </div>
 
-                            {{ input(label=form.genre.label, variable=form.genre) }}
-                            {{ input(label=form.difficulty.label, variable=form.difficulty) }}
-                            {{ input(label=form.time.label, variable=form.time) }}
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label" {{form.difficulty.label }}</label>
+                                        </div>
+                                        <div class="control">
+                                            {{form.difficulty(class_="input is-medium  is-expanded")}}
+                                        </div>
+                                        </div>
+
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label" {{form.time.label }}</label>
+                                                </div>
+
+                                            <div class="control">
+                                                {{form.time(class_="input is-medium is-expanded")}}
+                                            </div>
+                                            </div>
                         </div>
+
+
+
 
                         <div class="field is-grouped-right">
                             <p class="control">
-                                <button class="button is-primary" name="action" value="Solo" onclick="submit_search();">
+                                <button class="button is-primary" name="action" value="Solo">
                                     Submit
                                 </button>
                             </p>
@@ -56,7 +65,6 @@
                     </nav>
                 </div>
             </div>
-
             <div class="column">
                 Filler
             </div>
