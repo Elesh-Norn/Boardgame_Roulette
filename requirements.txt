@@ -13,6 +13,7 @@ Flask-DotEnv==0.1.2
 Flask-Login==0.4.1
 Flask-Mail==0.9.1
 Flask-Migrate==2.5.2
+Flask-Moment==0.9.0
 Flask-SQLAlchemy==2.4.0
 Flask-WTF==0.14.2
 importlib-metadata==0.23
@@ -21,6 +22,7 @@ Jinja2==2.10.1
 jwt==0.6.1
 Mako==1.1.0
 MarkupSafe==1.1.1
+marshmallow==3.5.0
 more-itertools==7.2.0
 packaging==19.2
 pluggy==0.13.0
@@ -37,4 +39,3 @@ wcwidth==0.1.7
 Werkzeug==0.15.6
 WTForms==2.2.1
 zipp==0.6.0
-
