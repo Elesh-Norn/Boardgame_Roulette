@@ -5,7 +5,7 @@ from flask_login import login_required
 from marshmallow import ValidationError
 from app import app, db
 from app.models import User, Post, Boardgame
-from app.forms import AddBoardgame,  RandomGame
+from app.forms import AddBoardgame, RandomGame
 from app.schema import SearchSchema
 
 
@@ -63,4 +63,3 @@ def random():
             flash("You can play {}".format(game))
             return redirect(url_for("random"))
     return render_template("random.html", game=game, form=form)
-

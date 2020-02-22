@@ -1,5 +1,6 @@
 from marshmallow import Schema, fields
 
+
 class SearchSchema(Schema):
     name = fields.Str()
     player_number = fields.Integer()

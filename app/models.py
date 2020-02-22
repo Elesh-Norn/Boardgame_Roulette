@@ -82,12 +82,14 @@ class User(UserMixin, db.Model):
         for key, value in result.items():
             # TODO improvement: Make a dict of filters to call.
             if key == "player":
-                game_list = game_list.filter(Boardgame.player_number_max >= value).\
-                    filter(Boardgame.player_number_min <= value)
+                game_list = game_list.filter(
+                    Boardgame.player_number_max >= value
+                ).filter(Boardgame.player_number_min <= value)
 
             elif key == "time":
-                game_list = game_list.filter(Boardgame.playtime_max >= value).\
-                    filter(Boardgame.playtime_low <= value)
+                game_list = game_list.filter(Boardgame.playtime_max >= value).filter(
+                    Boardgame.playtime_low <= value
+                )
         return game_list.order_by(func.random()).first()
 
     def __repr__(self):
