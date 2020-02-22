@@ -91,17 +91,16 @@ class AddBoardgame(FlaskForm):
 
 class RandomGame(FlaskForm):
     player_number = IntegerField(
-        "Players number", validators=[NumberRange(min=1, max=None)]
+        "Players number", validators=[NumberRange(min=1, max=None)], id="player_number"
         )
     genre = TextAreaField(
-        "Genre", validators=[Length(min=1, max=140)]
+        "Genre", validators=[Length(min=1, max=140)], id="genre"
         )
 
     difficulty = TextAreaField(
-        "Difficulty", validators=[Length(min=1, max=140)]
+        "Difficulty", validators=[Length(min=1, max=140)], id="difficulty"
         )
     
     time = IntegerField(
-        "Time", validators=[NumberRange(min=1, max=None)]
+        "Time", validators=[NumberRange(min=1, max=None)], id="time"
         )
-    submit = SubmitField(label="randomgame")

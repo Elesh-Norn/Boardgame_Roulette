@@ -8,7 +8,7 @@
             <label class="label">{{  label  }}</label>
         </div>
         <div class="control">
-            {{  variable(class_='input is-medium  is-expanded')  }}
+            {{  variable(class_='input is-medium  is-expanded', id=variable.id)  }}
         </div>
     {% for error in variable.errors %}
         <span style="color: red;">[{{ error }}]</span>
@@ -16,7 +16,16 @@
 
     </div>
 {%- endmacro %}
-
+{%  block script %}
+    <script>
+    function submit_search(){
+        var players = document.getElementById("player_number");
+        var entry = {
+            players: players.value
+        };
+    }
+    </script>
+{% endblock %}
     <div class="container">
     <h1 class="title">Pick a boardgame from your collection</h1>
     <form role="form" action="" method="POST">
@@ -39,7 +48,7 @@
 
                         <div class="field is-grouped-right">
                             <p class="control">
-                                <button class="button is-primary" name="action" value="Solo">
+                                <button class="button is-primary" name="action" value="Solo" onclick="submit_search();">
                                     Submit
                                 </button>
                             </p>
