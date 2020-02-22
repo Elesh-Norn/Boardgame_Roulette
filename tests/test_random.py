@@ -41,14 +41,15 @@ class UserModelCase(unittest.TestCase):
 
         db.session.add(u1)
         db.session.commit()
-        result = u1.random_game()
+        result = u1.random_game({})
         self.assertIsNone(result)
 
         u1.add_game(game1)
         u1.add_game(game2)
         db.session.commit()
 
-        self.assertIsNotNone(u1.random_game())
-        self.assertIsNotNone(u1.random_game(player_number_max=4))
-        self.assertIsNone(u1.random_game(player_number_max=5))
-        self.assertIsNone(u1.random_game(playtime_max=181))
+        self.assertIsNotNone(u1.random_game({}))
+
+        self.assertIsNotNone(u1.random_game({"player": 4}))
+        self.assertIsNone(u1.random_game({"player": 5}))
+        self.assertIsNone(u1.random_game({"time": 181}))

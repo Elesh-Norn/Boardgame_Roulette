@@ -100,7 +100,7 @@ class RandomGame(FlaskForm):
     difficulty = TextAreaField(
         "Difficulty", validators=[Length(min=1, max=140)], id="difficulty"
         )
-    
+
     time = IntegerField(
         "Time", validators=[NumberRange(min=1, max=None)], id="time"
         )

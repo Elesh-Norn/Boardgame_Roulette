@@ -2,9 +2,12 @@ from flask import render_template, flash, redirect, url_for
 from flask import request
 from flask_login import current_user, login_user, logout_user
 from flask_login import login_required
+from marshmallow import ValidationError
 from app import app, db
 from app.models import User, Post, Boardgame
 from app.forms import AddBoardgame,  RandomGame
+from app.schema import SearchSchema
+
 
 @app.route("/collection", methods=["GET", "POST"])
 @login_required
@@ -42,12 +45,22 @@ def collection():
 def random():
     form = RandomGame()
     game = None
-
     if form.validate_on_submit():
-        req = request.get_json()
-        print(req)
+
+        schema = SearchSchema()
+        try:
+            result = schema.load(form.data)
+        except ValidationError as err:
+            result = err.valid_data
+        if not result:
+            flash("You didn't fill any fields")
+            return redirect(url_for("random"))
+        game = current_user.random_game(result)
         if game is None:
             flash("You do not posses games that match those criteria")
+            return redirect(url_for("random"))
+        else:
+            flash("You can play {}".format(game))
             return redirect(url_for("random"))
     return render_template("random.html", game=game, form=form)
 

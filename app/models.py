@@ -77,10 +77,17 @@ class User(UserMixin, db.Model):
 
     # TODO remove game from collection
 
-    def random_game(self, **kwargs):
+    def random_game(self, result):
         game_list = self.collection
-        for key, value in kwargs.items():
-            game_list = game_list.filter(getattr(Boardgame, str(key)) >= str(value))
+        for key, value in result.items():
+            # TODO improvement: Make a dict of filters to call.
+            if key == "player":
+                game_list = game_list.filter(Boardgame.player_number_max >= value).\
+                    filter(Boardgame.player_number_min <= value)
+
+            elif key == "time":
+                game_list = game_list.filter(Boardgame.playtime_max >= value).\
+                    filter(Boardgame.playtime_low <= value)
         return game_list.order_by(func.random()).first()
 
     def __repr__(self):
