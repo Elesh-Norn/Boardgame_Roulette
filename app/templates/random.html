@@ -16,7 +16,7 @@
                                         <div class="select is-medium  is-expanded">
                                         <select>
                                             {%  for choice in variable.choices %}
-                                            <option>{{ choice[0] }}</option>
+                                            <option>{{ choice[1] }}</option>
                                             {%  endfor %}
                                         </select>
                                         </div>
@@ -66,4 +66,4 @@
     </form>
 </div>
 
-{% endblock %}g
+{% endblock %}
