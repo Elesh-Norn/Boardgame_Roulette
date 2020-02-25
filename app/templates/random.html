@@ -1,14 +1,29 @@
 {% extends "base.html"%}
 
 {% block content %}
-{% macro input(label, variable) -%}
+{% macro input(label, variable, type) -%}
 
     <div class="field is-horizontal">
                                 <div class="field-label is-normal">
                                 <label class="label">{{  label  }}</label>
                                 </div>
                                 <div class="control">
-                                    {{  variable(class_='input is-medium  is-expanded')  }}
+                                    {% if type == "input" %}
+
+                                        {{  variable(class_='input is-medium  is-expanded')  }}
+
+                                    {% elif type == "select" %}
+                                        <div class="select is-medium  is-expanded">
+                                        <select>
+                                            {%  for choice in variable.choices %}
+                                            <option>{{ choice[0] }}</option>
+                                            {%  endfor %}
+                                        </select>
+                                        </div>
+
+
+
+                                    {% endif %}
                                 </div>
                             </div>
 {%- endmacro %}
@@ -24,13 +39,13 @@
                         <div class="field">
                             <label class="label is-large">Players</label>
 
-                            {{ input(label=form.player_number.label, variable=form.player_number) }}
+                            {{ input(label=form.player_number.label, variable=form.player_number, type="input") }}
 
                             <label class="label is-large">Game</label>
 
-                            {{ input(label=form.genre.label, variable=form.genre) }}
-                            {{ input(label=form.difficulty.label, variable=form.difficulty) }}
-                            {{ input(label=form.time.label, variable=form.time) }}
+                            {{ input(label=form.genre.label, variable=form.genre, type="input") }}
+                            {{ input(label=form.difficulty.label, variable=form.difficulty, type="select") }}
+                            {{ input(label=form.time.label, variable=form.time, type="input") }}
                         </div>
 
                         <div class="field is-grouped-right">

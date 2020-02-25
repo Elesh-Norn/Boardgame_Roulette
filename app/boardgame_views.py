@@ -45,13 +45,14 @@ def collection():
 def random():
     form = RandomGame()
     game = None
-    if form.validate_on_submit():
-
+    if request.method == "POST":
         schema = SearchSchema()
         try:
             result = schema.load(form.data)
+            print(result)
         except ValidationError as err:
             result = err.valid_data
+            print(result)
         if not result:
             flash("You didn't fill any fields")
             return redirect(url_for("random"))

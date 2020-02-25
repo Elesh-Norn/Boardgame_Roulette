@@ -17,8 +17,8 @@ To do:
 * ~~Add a boardgame form~~
 * ~~Add a boardgame model~~
 * ~~Display the collection in a pretty way~~
-* A roulette page
-* A roulette function
+* ~~A roulette page~~
+* ~~A roulette function~~
 
 Find more about this tutorial [here](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world).
 

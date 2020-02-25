@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms import TextAreaField, IntegerField
+from wtforms import TextAreaField, IntegerField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from wtforms.validators import NumberRange
 from app.models import User, Boardgame
@@ -91,12 +91,17 @@ class AddBoardgame(FlaskForm):
 
 class RandomGame(FlaskForm):
     player_number = IntegerField(
-        "Players number", validators=[NumberRange(min=1, max=None)], id="player_number"
+        "Players number", validators=[NumberRange(min=0, max=None)], id="player_number"
     )
-    genre = TextAreaField("Genre", validators=[Length(min=1, max=140)], id="genre")
+    genre = TextAreaField("Genre",
+                          validators=[Length(min=0, max=140)],
+                          id="genre")
 
-    difficulty = TextAreaField(
-        "Difficulty", validators=[Length(min=1, max=140)], id="difficulty"
+    difficulty = SelectField(
+        "Difficulty",
+        choices=[("", "Not Selected"), ('Easy', 'Easy'),
+                 ('Medium', 'Medium'), ('Hard', 'Hard')],
+        id="difficulty"
     )
 
     time = IntegerField("Time", validators=[NumberRange(min=1, max=None)], id="time")
