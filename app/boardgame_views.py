@@ -49,10 +49,8 @@ def random():
         schema = SearchSchema()
         try:
             result = schema.load(form.data)
-            print(result)
         except ValidationError as err:
             result = err.valid_data
-            print(result)
         if not result:
             flash("You didn't fill any fields")
             return redirect(url_for("random"))

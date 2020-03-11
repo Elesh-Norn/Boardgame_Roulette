@@ -27,6 +27,34 @@ boardgames = db.Table(
 )
 
 
+class Boardgame(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(140))
+    player_number_min = db.Column(db.Integer)
+    player_number_max = db.Column(db.Integer)
+    playtime_low = db.Column(db.Integer)
+    playtime_max = db.Column(db.Integer)
+
+    def __repr__(self):
+        return "<Boardgame {}>".format(self.title)
+
+
+class SearchFilters:
+
+    def search_player_count(game_list, value):
+        return game_list.filter(
+            Boardgame.player_number_max >= value
+            ).filter(Boardgame.player_number_min <= value)
+    def search_play_time(game_list, value):
+        return game_list.filter(
+            Boardgame.playtime_max >= value
+            ).filter(Boardgame.playtime_low <= value)
+
+filters = {
+    "player": SearchFilters.search_player_count, 
+    "time": SearchFilters.search_play_time
+           }
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -80,16 +108,8 @@ class User(UserMixin, db.Model):
     def random_game(self, result):
         game_list = self.collection
         for key, value in result.items():
-            # TODO improvement: Make a dict of filters to call.
-            if key == "player":
-                game_list = game_list.filter(
-                    Boardgame.player_number_max >= value
-                ).filter(Boardgame.player_number_min <= value)
-
-            elif key == "time":
-                game_list = game_list.filter(Boardgame.playtime_max >= value).filter(
-                    Boardgame.playtime_low <= value
-                )
+            if key in filters:
+                game_list = filters[key](game_list, value)
         return game_list.order_by(func.random()).first()
 
     def __repr__(self):
@@ -127,15 +147,3 @@ class Post(db.Model):
 
     def __repr__(self):
         return "<Post {}>".format(self.body)
-
-
-class Boardgame(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(140))
-    player_number_min = db.Column(db.Integer)
-    player_number_max = db.Column(db.Integer)
-    playtime_low = db.Column(db.Integer)
-    playtime_max = db.Column(db.Integer)
-
-    def __repr__(self):
-        return "<Boardgame {}>".format(self.title)
