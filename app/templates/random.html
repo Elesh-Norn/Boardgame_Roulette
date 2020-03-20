@@ -13,12 +13,14 @@
                                         {{  variable(class_='input is-medium  is-expanded')  }}
 
                                     {% elif type == "select" %}
+                                        <div class="control">
                                         <div class="select is-medium  is-expanded">
                                         <select>
-                                            {%  for choice in variable.choices %}
+                                            git {%  for choice in variable.choices %}
                                             <option>{{ choice[1] }}</option>
                                             {%  endfor %}
                                         </select>
+                                        </div>
                                         </div>
 
 
@@ -48,9 +50,10 @@
                             {{ input(label=form.time.label, variable=form.time, type="input") }}
                         </div>
 
+
                         <div class="field is-grouped-right">
                             <p class="control">
-                                <button class="button is-primary" name="action" value="Solo">
+                                <button class="button is-primary">
                                     Submit
                                 </button>
                             </p>

@@ -51,10 +51,18 @@ class SearchFilters:
         return game_list.filter(
             Boardgame.playtime_max >= value
             ).filter(Boardgame.playtime_low <= value)
+    def search_genre(game_list, value):
+        return game_list.filter(Boardgame.genre == value)
+
+    def search_difficulty(game_list, value):
+        return game_list.filter(Boardgame.difficulty == value)
+
 
 filters = {
     "player": SearchFilters.search_player_count, 
-    "time": SearchFilters.search_play_time
+    "time": SearchFilters.search_play_time,
+    "genre": SearchFilters.search_genre,
+    "difficulty": SearchFilters.search_difficulty
            }
 
 class User(UserMixin, db.Model):
