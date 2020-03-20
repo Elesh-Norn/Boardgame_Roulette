@@ -15,9 +15,9 @@
                                     {% elif type == "select" %}
                                         <div class="control">
                                         <div class="select is-medium  is-expanded">
-                                        <select>
-                                            git {%  for choice in variable.choices %}
-                                            <option>{{ choice[1] }}</option>
+                                        <select name="difficulty">
+                                            {%  for choice in variable.choices %}
+                                            <option value={{ choice[0] }}>{{ choice[1] }}</option>
                                             {%  endfor %}
                                         </select>
                                         </div>
@@ -49,7 +49,6 @@
                             {{ input(label=form.difficulty.label, variable=form.difficulty, type="select") }}
                             {{ input(label=form.time.label, variable=form.time, type="input") }}
                         </div>
-
 
                         <div class="field is-grouped-right">
                             <p class="control">
