@@ -1,77 +1,53 @@
 ﻿{% extends "base.html" %}
 
 {% block content %}
+{% macro input_field(field) -%}
+    <div class="level-item">
+        <div class="field">
+            <label class="label">{{ field.label }}</label>
+            <div class="control">
+                {{ field(class_="input") }}
+            </div>
+        </div>
+    </div>
+{%- endmacro %}
 
     <div class="container">
     <h1 class="title">Add a Game!</h1>
-    <form role="form" action="" method="post">
-        {{ form.hidden_tag() }}
-        <nav class="level">
+        <form role="form" action="" method="post">
+            {{ form.hidden_tag() }}
+            <nav class="level">
+                {{ input_field(field=form.title) }}
+                {{ input_field(field=form.player_number_min) }}
+                {{ input_field(field=form.player_number_max) }}
+                {{ input_field(field=form.playtime_low) }}
+                {{ input_field(field=form.playtime_max) }}
+            </nav>
 
-            <div class="level-item">
-                <div class="field">
-                    <label class="label">{{ form.title.label }}</label>
-                    <div class="control">
-                        {{ form.title(class_="input") }}
+            <nav class="level">
+                {{ input_field(field=form.genre) }}
+                {{ input_field(field=form.difficulty) }}
+                <div class="level-item">
+                    <div class="field">
+                        <p class="control">
+                            <button class="button is-primary">
+                                Submit
+                            </button>
+                        </p>
                     </div>
                 </div>
-            </div>
 
-<div class="level-item">
-            <div class="field">
-                <label class="label">{{ form.player_number_min.label }}</label>
-                <div class="control">
-                    {{ form.player_number_min(class_="input") }}
-                </div>
-            </div>
-    </div>
+                {% for error in form.title.errors %}
+                <span style="color: red;">
+                    [{{
+     error
+                    }}]
+                </span>
+                {% endfor %}
 
-<div class="level-item">
-            <div class="field">
-                <label class="label">{{ form.player_number_max.label }}</label>
-                <div class="control">
-                    {{ form.player_number_max(class_="input") }}
-                </div>
-            </div>
-    </div>
-            <div class="level-item">
-            <div class="field">
-                <label class="label">{{ form.playtime_low.label }}</label>
-                <div class="control">
-                    {{ form.playtime_low(class_="input") }}
-                </div>
-            </div>
-</div>
-<div class="level-item">
-            <div class="field">
-                <label class="label">{{ form.playtime_max.label }}</label>
-                <div class="control">
-                    {{ form.playtime_max(class_="input") }}
-                </div>
-            </div>
-    </div>
-
-<div class="level-item">
-            <div class="field">
-                <p class="control">
-                    <button class="button is-primary">
-                        Submit
-                    </button>
-                </p>
-            </div>
-    </div>
-
-            {% for error in form.title.errors %}
-            <span style="color: red;">
-                [{{
- error
-                }}]
-            </span>
-            {% endfor %}
-
-    </nav>
+            </nav>
         </form>
-        </div>
+    </div>
 <hr>
 <section>
     <div class="columns">
@@ -83,8 +59,9 @@
                 <tr>
                     <th>Name</th>
                     <th>Number of players</th>
-                    <th>Game Lenght
-                    <th>
+                    <th>Game Lenght</th>
+                    <th>Genre</th>
+                    <th>Difficulty</th>
                 </tr>
             </thead>
             <tbody>

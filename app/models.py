@@ -34,6 +34,8 @@ class Boardgame(db.Model):
     player_number_max = db.Column(db.Integer)
     playtime_low = db.Column(db.Integer)
     playtime_max = db.Column(db.Integer)
+    genre = db.Column(db.String(140))
+    difficulty = db.Column(db.String(140))
 
     def __repr__(self):
         return "<Boardgame {}>".format(self.title)

@@ -86,6 +86,10 @@ class AddBoardgame(FlaskForm):
     playtime_max = IntegerField(
         "Max Time in minute", validators=[DataRequired(), NumberRange(min=0, max=None)]
     )
+    genre = TextAreaField("Genre", validators=[DataRequired(), Length(min=1, max=140)])
+
+    difficulty = TextAreaField("Difficulty", validators=[DataRequired(), Length(min=1, max=140)])
+
     submit = SubmitField("Add")
 
 

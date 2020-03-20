@@ -20,14 +20,16 @@ def collection():
             player_number_max=form.player_number_max.data,
             playtime_low=form.playtime_low.data,
             playtime_max=form.playtime_max.data,
+            genre=form.genre.data,
+            difficulty=form.difficulty.data
         )
 
         if current_user.own_game(game):
             flash("You already have this game")
             return redirect(url_for("collection"))
 
-        isgameindb = Boardgame.query.filter_by(title=game.title).first()
-        if not isgameindb:
+        is_game_in_db = Boardgame.query.filter_by(title=game.title).first()
+        if not is_game_in_db:
             db.session.add(game)
 
         current_user.add_game(game)
