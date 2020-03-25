@@ -88,7 +88,12 @@ class AddBoardgame(FlaskForm):
     )
     genre = TextAreaField("Genre", validators=[DataRequired(), Length(min=1, max=140)])
 
-    difficulty = TextAreaField("Difficulty", validators=[DataRequired(), Length(min=1, max=140)])
+    difficulty = SelectField(
+        "Difficulty",
+        choices=[("", "Not Selected"), ('Easy', 'Easy'),
+                 ('Medium', 'Medium'), ('Hard', 'Hard')],
+        id="difficulty"
+    )
 
     submit = SubmitField("Add")
 

@@ -31,41 +31,85 @@
 {%- endmacro %}
 
     <div class="container">
-    <h1 class="title">Pick a boardgame from your collection</h1>
-    <form role="form" action="" method="post">
-        <div class="columns">
+        <h1 class="title">Pick a boardgame from your collection</h1>
+        
+            <div class="columns">
+                <div class="column">
+                    <form role="form" action="" method="post">
+                        <div class="columns">
+                            <nav class="column">
+                                {{ form.hidden_tag() }}
+                                <div class="field">
+                                    <label class="label is-large">Players</label>
+
+                                    {{ input(label=form.player_number.label, variable=form.player_number, type="input") }}
+
+                                    <label class="label is-large">Game</label>
+
+                                    {{ input(label=form.genre.label, variable=form.genre, type="input") }}
+                                    {{ input(label=form.difficulty.label, variable=form.difficulty, type="select") }}
+                                    {{ input(label=form.time.label, variable=form.time, type="input") }}
+                                </div>
+
+                                <div class="field is-grouped is-grouped-right">
+                                    <p class="control">
+                                        <button class="button is-primary">
+                                            Submit
+                                        </button>
+                                    </p>
+                                </div>
+                            </nav>
+                        </div>
+                    </form>
+                </div>
+
             <div class="column">
-                <div class="columns">
-                    <nav class="column">
-                        {{ form.hidden_tag() }}
-                        <div class="field">
-                            <label class="label is-large">Players</label>
-
-                            {{ input(label=form.player_number.label, variable=form.player_number, type="input") }}
-
-                            <label class="label is-large">Game</label>
-
-                            {{ input(label=form.genre.label, variable=form.genre, type="input") }}
-                            {{ input(label=form.difficulty.label, variable=form.difficulty, type="select") }}
-                            {{ input(label=form.time.label, variable=form.time, type="input") }}
+                <div class="card">
+                    <div class="columns">
+                        <div class="column is-one-fifth"></div>
+                        <div class="column is-three-fifths">
+                            <figure class="image is-centered">
+                                <img src="/static/icon.jpeg" alt="Placeholder image">
+                            </figure>
                         </div>
+                        <div class="column is-one-fifth"></div>
+                    </div>
 
-                        <div class="field is-grouped-right">
-                            <p class="control">
-                                <button class="button is-primary">
-                                    Submit
-                                </button>
-                            </p>
+                    <div class="card-content">
+                        <div class="media-content">
+                            <p class="title is-4">Selected Game Title</p>
+                            <p class="subtitle is-6">Owned by : John</p>
                         </div>
-                    </nav>
+                    </div>
+                    <div class="content">
+                        Audi famam illius.
+                        Solus in hostes ruit
+                        et patriam servavit.
+                        Audi famam illius.
+                        Cucurrit quaeque
+                        tetigit destruens.
+
+                        Audi famam illius.
+                        Audi famam illius.
+
+                        Spes omnibus, mihi quoque.
+                        Terror omnibus, mihi quoque.
+
+                        Ille
+                        iuxta me.
+
+                        Ille iuxta me.
+                        Socii sunt mihi,
+                        qui olim viri fortes
+                        rivalesque erant.
+
+                        Saeve certando pugnandoque
+                        lendor crescit.
+                    </div>
                 </div>
             </div>
-
-            <div class="column">
-                Filler
-            </div>
         </div>
-    </form>
-</div>
+    </div>
+    
 
 {% endblock %}

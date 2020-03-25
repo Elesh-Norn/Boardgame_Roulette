@@ -2,127 +2,88 @@
 
 {% block content %}
 {% macro input_field(field) -%}
-    <div class="level-item">
-        <div class="field">
-            <label class="label">{{ field.label }}</label>
-            <div class="control">
+
+    <label class="label is-normal">{{ field.label }}</label>
+
+            <div class="field">
                 {{ field(class_="input") }}
             </div>
-        </div>
-    </div>
 {%- endmacro %}
 
-    <div class="container">
-    <h1 class="title">Add a Game!</h1>
-        <form role="form" action="" method="post">
-            {{ form.hidden_tag() }}
-            <nav class="level">
-                {{ input_field(field=form.title) }}
-                {{ input_field(field=form.player_number_min) }}
-                {{ input_field(field=form.player_number_max) }}
-                {{ input_field(field=form.playtime_low) }}
-                {{ input_field(field=form.playtime_max) }}
-            </nav>
-
-            <nav class="level">
-                {{ input_field(field=form.genre) }}
-                {{ input_field(field=form.difficulty) }}
-                <div class="level-item">
-                    <div class="field">
-                        <p class="control">
-                            <button class="button is-primary">
-                                Submit
-                            </button>
-                        </p>
-                    </div>
-                </div>
-
-                {% for error in form.title.errors %}
-                <span style="color: red;">
-                    [{{
-     error
-                    }}]
-                </span>
-                {% endfor %}
-
-            </nav>
-        </form>
-    </div>
+    
 <hr>
 <section>
     <div class="columns">
 
-    <div class="column">
-        <h1 class="title">Your Collection</h1>
-        <table class="table is-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Number of players</th>
-                    <th>Game Lenght</th>
-                    <th>Genre</th>
-                    <th>Difficulty</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for game in games %}
-                {% include '_game.html' %}
-                {% endfor %}
-                {% if prev_url %}
-            </tbody>
-            <a href="{{ prev_url }}">Newer posts</a>
-            {% endif %}
-            {% if next_url %}
-            <a href="{{ next_url }}">Older posts</a>
-            {% endif %}
-        </table>
-    </div>
+        <div class="column">
 
-    <div class="column">
-        <div class="card">
-            <div class="columns">
-                <div class="column is-one-fifth"></div>
-                <div class="column is-three-fifths">
-                    <figure class="image is-centered">
-                        <img src="/static/icon.jpeg" alt="Placeholder image">
-                    </figure>
-                </div>
-                <div class="column is-one-fifth"></div>
-            </div>
+                        <h1 class="title">Add a Game!</h1>
+                        <form role="form" action="" method="post">
+                            {{ form.hidden_tag() }}
+                            <div class="field">
+                                {{ input_field(field=form.title) }}
+                                {{ input_field(field=form.player_number_min) }}
+                                {{ input_field(field=form.player_number_max) }}
+                                {{ input_field(field=form.playtime_low) }}
+                                {{ input_field(field=form.playtime_max) }}
+                                {{ input_field(field=form.genre) }}
+                                <label class="label is-normal">
+                                    {{ form.difficulty.label}}</label>
+                                <div class="field">
+                                    <div class="control">
+                                        <div class="select ">
+                                            <select name="difficulty">
+                                                {%  for choice in form.difficulty.choices %}
+                                                <option value={{ choice[0] }}>{{ choice[1] }}</option>
+                                                {%  endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="card-content">
-                <div class="media-content">
-                    <p class="title is-4">Selected Game Title</p>
-                    <p class="subtitle is-6">Owned by : John</p>
-                </div>
-            </div>
-            <div class="content">
-            Audi famam illius.
-            Solus in hostes ruit
-            et patriam servavit.
-            Audi famam illius.
-            Cucurrit quaeque
-            tetigit destruens.
+                            <div class="field is-grouped is-grouped-right">
+                                <p class="control">
+                                    <button class="button is-primary">
+                                        Submit
+                                    </button>
+                                </p>
+                            </div>
 
-            Audi famam illius.
-            Audi famam illius.
+                            {% for error in form.title.errors %}
+                            <span style="color: red;">
+                                [{{ error }}]
+                            </span>
+                            {% endfor %}
+                    </form>
+        </div>
 
-            Spes omnibus, mihi quoque.
-            Terror omnibus, mihi quoque.
-
-            Ille
-            iuxta me.
-
-            Ille iuxta me.
-            Socii sunt mihi,
-            qui olim viri fortes
-            rivalesque erant.
-
-            Saeve certando pugnandoque
-            lendor crescit.
-            </div>
+        <div class="column">
+            <h1 class="title">Your Collection</h1>
+            <table class="table is-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Number of players</th>
+                        <th>Game Lenght</th>
+                        <th>Genre</th>
+                        <th>Difficulty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for game in games %}
+                    {% include '_game.html' %}
+                    {% endfor %}
+                    {% if prev_url %}
+                </tbody>
+                <a href="{{ prev_url }}">Newer posts</a>
+                {% endif %}
+                {% if next_url %}
+                <a href="{{ next_url }}">Older posts</a>
+                {% endif %}
+            </table>
         </div>
     </div>
-        </div>
+
 </section>
 {% endblock %}
